@@ -62,10 +62,11 @@ void Adafruit_MLX90614::writeEmissivityReg(uint16_t ereg) {
  * @param addr The new I2C Adress for the Sensor
  */
 void Adafruit_MLX90614::changeAdress(byte adress) {
-  write8(MLX90614_ADDR, 0); // erase
+  write16(MLX90614_ADDR, 0); // erase
   delay(10);
-  write8(MLX90614_ADDR, adress);
+  write16(MLX90614_ADDR, adress);
   delay(10);
+  Serial.printf("%4x \n", read16(MLX90614_ADDR));
 }
 /**
  * @brief Read the emissivity value from the sensor's register and scale
