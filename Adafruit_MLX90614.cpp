@@ -57,6 +57,17 @@ void Adafruit_MLX90614::writeEmissivityReg(uint16_t ereg) {
   delay(10);
 }
 /**
+ * @brief Write a new I2C Bus Adress to the Adress register
+ *
+ * @param addr The new I2C Adress for the Sensor
+ */
+void Adafruit_MLX90614::changeAdress(byte adress) {
+  write8(MLX90614_ADDR, 0); // erase
+  delay(10);
+  write8(MLX90614_ADDR, adress);
+  delay(10);
+}
+/**
  * @brief Read the emissivity value from the sensor's register and scale
  *
  * @return double The emissivity value, ranging from 0.1 - 1.0 or NAN if reading
@@ -172,4 +183,20 @@ void Adafruit_MLX90614::write16(uint8_t a, uint16_t v) {
   buffer[3] = pec;
 
   i2c_dev->write(buffer, 4);
+}
+
+void Adafruit_MLX90614::write8(uint8_t a, uint8_t v) {
+  uint8_t buffer[3];
+
+  buffer[0] = _addr << 1;
+  buffer[1] = a;
+  buffer[2] = v;
+
+  uint8_t pec = crc8(buffer, 3);
+
+  buffer[0] = buffer[1];
+  buffer[1] = buffer[2];
+  buffer[2] = pec;
+
+  i2c_dev->write(buffer, 3);
 }

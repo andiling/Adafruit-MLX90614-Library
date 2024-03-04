@@ -56,13 +56,14 @@ public:
   void writeEmissivityReg(uint16_t ereg);
   double readEmissivity(void);
   void writeEmissivity(double emissivity);
+  void changeAdress(byte adress);
 
 private:
   Adafruit_I2CDevice *i2c_dev = NULL; ///< Pointer to I2C bus interface
   float readTemp(uint8_t reg);
-
   uint16_t read16(uint8_t addr);
   void write16(uint8_t addr, uint16_t data);
+  void write8(uint8_t addr, uint8_t data);
   byte crc8(byte *addr, byte len);
   uint8_t _addr;
 };
