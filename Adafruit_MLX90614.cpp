@@ -66,7 +66,7 @@ void Adafruit_MLX90614::changeAdress(byte adress) {
   delay(10);
   write16(MLX90614_ADDR, adress);
   delay(10);
-  Serial.printf("%4x \n", read16(MLX90614_ADDR));
+  Serial.printf("Sensor Adress is changed to %4x - Don't forget the power cicle!\n\r", read16(MLX90614_ADDR));
 }
 /**
  * @brief Read the emissivity value from the sensor's register and scale
